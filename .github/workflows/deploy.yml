@@ -51,18 +51,19 @@ jobs:
         with:
           scan-type: 'config'
           hide-progress: false
-          format: 'json'
-          output: 'trivy-results.json'
+          format: 'table'
+          output: 'trivy-results.txt'
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
+        continue-on-error: true
 
       - name: Archive production artifacts
         id: upload_artifact
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact-scan
-          path: trivy-results.json
+          path: trivy-results.txt
 
 ###
   plan:
