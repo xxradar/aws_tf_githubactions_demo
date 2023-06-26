@@ -77,9 +77,9 @@ jobs:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
       - name: Generate Infracost JSON
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
+   #     uses: actions/download-artifact@v3
+   #     with:
+  #      name: my-artifact
         run: infracost breakdown --path plan.tfplan --format json --usage-file infracost-usage.yml --out-file /tmp/infracost.json
         working-directory: ${{ env.TFPath }}
 
