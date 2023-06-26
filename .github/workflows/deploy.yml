@@ -72,7 +72,7 @@ jobs:
 
 ###
   plan:
-    name: "Terraform Plan"
+    name: "Terraform Deploy"
     runs-on: ubuntu-latest
     needs: [scan]
     env:
@@ -143,8 +143,8 @@ jobs:
         run: |
             infracost comment github --path=/tmp/infracost.json \
                                      --repo="xxradar/aws_tf_githubactions_demo-" \
-                                     --github-token=${{ secrets.GIT_TOKEN }}} \
-                                     --commit=${{ github.event.pull_request.base.ref }} \
+                                     --github-token=${{ secrets.GIT_TOKEN }} \
+                                     --commit=$GITHUB_SHA \
                                      --behavior=hide-and-new
 ###
 
