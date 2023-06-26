@@ -69,7 +69,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
           gh auth setup-git
-          gh issue create --title "issue" -b "demo"
+          gh issue create --title "issue" -b "demo "
 
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
