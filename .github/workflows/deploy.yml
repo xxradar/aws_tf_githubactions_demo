@@ -57,13 +57,12 @@ jobs:
         continue-on-error: true
         working-directory: ${{ env.TFPath }}
 
-      - name: Upload artifact Terraform plan
+      - name: Archive production artifacts
         id: upload artifact
-        uses: actions/upload-artifact@v2
-        working-directory: ${{ env.TFPath }}
+        uses: aactions/upload-artifact@v3
         with:
           name: my-artifact
-          path: plan.tfplan
+          path: ${{ env.TFPath }}/plan.tfplan
 
       - uses: actions/github-script@0.9.0
         # if: github.event_name == 'pull_request'
