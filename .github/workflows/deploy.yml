@@ -39,7 +39,7 @@ jobs:
         working-directory: ${{ env.TFPath }}
 ###
   build:
-    name: Build
+    name: scan
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
