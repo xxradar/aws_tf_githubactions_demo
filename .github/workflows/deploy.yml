@@ -52,6 +52,9 @@ jobs:
       TF_VAR_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Terraform Init
         id: init
         run: terraform init
