@@ -38,7 +38,7 @@ jobs:
         run: terraform fmt -check
         working-directory: ${{ env.TFPath }}
 ###
-  build:
+  scan:
     name: scan
     runs-on: ubuntu-20.04
     steps:
