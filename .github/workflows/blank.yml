@@ -1,36 +1,116 @@
-# This is a basic workflow to help you get started with Actions
+name: Terraform Deploy AWS
 
-name: CI
+env:
+  TFPath: tf/02_infra
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - main
+    paths:
+    - 'tf/02_infra/**'
+    - '!tf/02_infra/**.md'
+  pull_request_target:
+    branches:
+      - main
+    paths:
+    - 'tf/02_infra/**'
+    - '!tf/02_infra/**.md'
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  terraform:
+    name: "Day 1 - Terraform"
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_PREFIX: "FORTINET-${{ github.run_id }}-${{ github.run_number }}"
+      TF_VAR_REGION: "westeurope"
+      TF_VAR_USERNAME: "admin"
+      TF_VAR_PASSWORD: "${{ secrets.PASSWORD }}"
+      TF_VAR_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      TF_VAR_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      TF_VAR_KEY_PAIR: ${{ secrets.AWS_KEY_PAIR }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        # with:
+          # terraform_version: 0.13.0:
+          # cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Plan
+        id: plan
+#        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -out plan.tfplan
+        continue-on-error: true
+        working-directory: ${{ env.TFPath }}
+
+      - uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v1
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost JSON
+        run: infracost breakdown --path plan.json --format json --usage-file infracost-usage.yml --out-file /tmp/infracost.json
+        working-directory: ${{ env.TFPath }}
+
+      - name: Post Infracost comment
+        uses: infracost/actions/comment@v1
+        with:
+          path: /tmp/infracost.json
+          behavior: update
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.TFPath }}
