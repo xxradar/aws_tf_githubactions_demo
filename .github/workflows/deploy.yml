@@ -78,7 +78,7 @@ jobs:
 
       - name: Generate Infracost JSON
         uses: actions/download-artifact@v3
-          with:
+        with:
           name: my-artifact
         run: infracost breakdown --path plan.tfplan --format json --usage-file infracost-usage.yml --out-file /tmp/infracost.json
         working-directory: ${{ env.TFPath }}
