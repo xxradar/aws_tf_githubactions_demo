@@ -41,8 +41,9 @@ jobs:
         id: init
         run: terraform init
         working-directory: ${{ env.TFPath }}
-        access-key: ${{ secrets.AWS_SECRET_KEY }}
-        secret-key: ${{ secrets.AWS_SECRET_KEY }}
+        with:
+          access-key: ${{ secrets.AWS_SECRET_KEY }}
+          secret-key: ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Terraform Validate
         id: validate
