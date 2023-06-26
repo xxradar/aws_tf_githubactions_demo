@@ -58,8 +58,8 @@ jobs:
         working-directory: ${{ env.TFPath }}
 
       - name: Archive production artifacts
-        id: upload artifact
-        uses: aactions/upload-artifact@v3
+        id: upload_artifact
+        uses: actions/upload-artifact@v3
         with:
           name: my-artifact
           path: ${{ env.TFPath }}/plan.tfplan
