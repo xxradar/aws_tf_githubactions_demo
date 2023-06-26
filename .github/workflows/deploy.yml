@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_VAR_PREFIX: "FORTINET-${{ github.run_id }}-${{ github.run_number }}"
-      TF_VAR_REGION: "westeurope"
+      region: "eu-west-3"
       TF_VAR_USERNAME: "admin"
       TF_VAR_PASSWORD: "${{ secrets.PASSWORD }}"
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      secret_key: ${{ secrets.AWS_SECRET_KEY }}
       TF_VAR_KEY_PAIR: ${{ secrets.AWS_KEY_PAIR }}
 
     steps:
@@ -41,9 +41,6 @@ jobs:
         id: init
         run: terraform init
         working-directory: ${{ env.TFPath }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Validate
         id: validate
