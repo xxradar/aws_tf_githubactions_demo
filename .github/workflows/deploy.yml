@@ -64,7 +64,7 @@ jobs:
           name: my-artifact
           path: ${{ env.TFPath }}/plan.tfplan
 
-      - uses: actions/checkout@v2
+      - name: github issue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
