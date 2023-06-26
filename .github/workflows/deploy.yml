@@ -1,0 +1,108 @@
+name: Terraform Deploy AWS
+
+env:
+  TFPath: tf/02_infra
+
+on:
+  push:
+   branches: [ master ]
+  pull_request:
+   branches: [ master ]
+
+jobs:
+  terraform:
+    name: "Day 1 - Terraform"
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_PREFIX: "FORTINET-${{ github.run_id }}-${{ github.run_number }}"
+      TF_VAR_REGION: "westeurope"
+      TF_VAR_USERNAME: "admin"
+      TF_VAR_PASSWORD: "${{ secrets.PASSWORD }}"
+      TF_VAR_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      TF_VAR_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      TF_VAR_KEY_PAIR: ${{ secrets.AWS_KEY_PAIR }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.1
+          # cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Plan
+        id: plan
+#        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -out plan.tfplan
+        continue-on-error: true
+        working-directory: ${{ env.TFPath }}
+
+      - uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v1
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost JSON
+        run: infracost breakdown --path plan.json --format json --usage-file infracost-usage.yml --out-file /tmp/infracost.json
+        working-directory: ${{ env.TFPath }}
+
+      - name: Post Infracost comment
+        uses: infracost/actions/comment@v1
+        with:
+          path: /tmp/infracost.json
+          behavior: update
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.TFPath }}
