@@ -164,7 +164,12 @@ jobs:
     steps:
       - name: Checkout base branch
         uses: actions/checkout@v3
-        
+      
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact-tfplan
+          path: /tmp//plan.tfplan
+         
       - name: Terraform Init
         id: init
         run: terraform init
@@ -172,5 +177,5 @@ jobs:
 
       - name: Terraform Apply
         #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve /tmp/plan.tfplan
         working-directory: ${{ env.TFPath }}
