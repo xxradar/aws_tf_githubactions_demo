@@ -18,8 +18,8 @@ jobs:
       TF_VAR_REGION: "westeurope"
       TF_VAR_USERNAME: "admin"
       TF_VAR_PASSWORD: "${{ secrets.PASSWORD }}"
-      TF_VAR_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      TF_VAR_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       TF_VAR_KEY_PAIR: ${{ secrets.AWS_KEY_PAIR }}
 
     steps:
