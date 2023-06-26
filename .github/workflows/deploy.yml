@@ -64,10 +64,12 @@ jobs:
           name: my-artifact
           path: ${{ env.TFPath }}/plan.tfplan
 
-      - run: gh issue comment create  --body "Thank you for opening this issue!"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE: ${{ github.event.issue.html_url }}
+      - name: Create Github Issue  
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Simple test issue
+          body: my new issue
 
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
