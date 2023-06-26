@@ -168,7 +168,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: my-artifact-tfplan
-          path: /tmp//plan.tfplan
+          path: /tmp
          
       - name: Terraform Init
         id: init
