@@ -86,8 +86,10 @@ jobs:
       TF_VAR_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          ref: '${{ github.event.pull_request.base.ref }}'
         
       - name: Terraform Init
         id: init
@@ -136,17 +138,13 @@ jobs:
           name: my-artifact-infracost
           path: /tmp/infracost.json
           
-      - name: Post Infracost comment
-        uses: infracost/actions/comment@v1
-        with:
-          path: /tmp/infracost.json
-          behavior: update
 ###    
       - name: Post Infracost comment
         run: |
             infracost comment github --path=/tmp/infracost.json \
                                      --repo="xxradar/aws_tf_githubactions_demo-" \
                                      --github-token=${{ secrets.GIT_TOKEN }}} \
+                                     --pull-request=${{github.event.pull_request.number}} \
                                      --behavior=update
 ###
 
