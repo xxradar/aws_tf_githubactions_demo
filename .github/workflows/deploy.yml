@@ -4,19 +4,10 @@ env:
   TFPath: tf/02_infra
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - main
-    paths:
-    - 'tf/02_infra/**'
-    - '!tf/02_infra/**.md'
-  pull_request_target:
-    branches:
-      - main
-    paths:
-    - 'tf/02_infra/**'
-    - '!tf/02_infra/**.md'
+   branches: [ master ]
+  pull_request:
+   branches: [ master ]
 
 jobs:
   terraform:
