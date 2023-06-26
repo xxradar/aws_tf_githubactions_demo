@@ -19,7 +19,7 @@ variable "az2" {
 // IAM role that has proper permission for HA
 // Refer to the URL For details. https://docs.fortinet.com/document/fortigate-public-cloud/7.2.0/aws-administration-guide/229470/deploying-fortigate-vm-active-passive-ha-aws-between-multiple-zones
 variable "iam" {
-  default = "fgt_profile"    //Put in the IAM Role name created
+  default = "fgt_profile" //Put in the IAM Role name created
 }
 
 variable "vpccidr" {
@@ -274,7 +274,7 @@ variable "fgtami" {
         byol = "ami-08395b4eafe53a06a"
       }
     },
-     me-south-1 = {
+    me-south-1 = {
       arm = {
         payg = "ami-0863759c8b872a2d2"
         byol = "ami-048b46d03fadb2b17"
