@@ -61,7 +61,7 @@ jobs:
         id: upload_artifact
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: my-artifact-tfplan
           path: ${{ env.TFPath }}/plan.tfplan
 
       - name: github issue
@@ -77,12 +77,16 @@ jobs:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
       - name: Generate Infracost JSON
-   #     uses: actions/download-artifact@v3
-   #     with:
-  #      name: my-artifact
         run: infracost breakdown --path plan.tfplan --format json --usage-file infracost-usage.yml --out-file /tmp/infracost.json
         working-directory: ${{ env.TFPath }}
-
+        
+      - name: Archive production artifacts
+        id: upload_artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact-infracost
+          path: /tmp/infracost.json
+          
       - name: Post Infracost comment
         uses: infracost/actions/comment@v1
         with:
