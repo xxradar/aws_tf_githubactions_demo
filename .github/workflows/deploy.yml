@@ -48,6 +48,7 @@ jobs:
 
       - name: Change working dir
         working-directory: ${{ env.TFPath }}
+        run: ls -la
 
       - name: Run Trivy vulnerability scanner in IaC mode
         uses: aquasecurity/trivy-action@master
