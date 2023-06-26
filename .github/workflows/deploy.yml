@@ -57,8 +57,9 @@ jobs:
         continue-on-error: true
         working-directory: ${{ env.TFPath }}
 
-      - name: upload artifact
+      - name: Upload artifact Terraform plan
         uses: actions/upload-artifact@v2
+        working-directory: ${{ env.TFPath }}
         with:
           name: my-artifact
           path: plan.tfplan
