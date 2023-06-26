@@ -142,7 +142,7 @@ jobs:
       - name: Post Infracost comment
         run: |
             infracost comment github --path=/tmp/infracost.json \
-                                     --repo="xxradar/aws_tf_githubactions_demo-" \
+                                     --repo=$GITHUB_REPO \ 
                                      --github-token=${{ secrets.GIT_TOKEN }} \
                                      --commit=$GITHUB_SHA \
                                      --behavior=hide-and-new
