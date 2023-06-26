@@ -144,8 +144,8 @@ jobs:
             infracost comment github --path=/tmp/infracost.json \
                                      --repo="xxradar/aws_tf_githubactions_demo-" \
                                      --github-token=${{ secrets.GIT_TOKEN }}} \
-                                     --pull-request=${{github.event.pull_request.number}} \
-                                     --behavior=update
+                                     --commit=${{ github.event.pull_request.base.ref }} \
+                                     --behavior=hide-and-new
 ###
 
       - name: Terraform Plan Status
