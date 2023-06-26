@@ -64,7 +64,7 @@ jobs:
           name: my-artifact
           path: ${{ env.TFPath }}/plan.tfplan
 
-      - run: gh issue comment create --title "testing" --body "Thank you for opening this issue!"
+      - run: gh issue comment create  --body "Thank you for opening this issue!"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE: ${{ github.event.issue.html_url }}
