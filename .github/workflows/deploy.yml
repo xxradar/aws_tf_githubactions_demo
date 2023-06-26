@@ -81,7 +81,7 @@ jobs:
         working-directory: ${{ env.TFPath }}
         
       - name: Archive production artifacts
-        id: upload_artifact
+        id: upload_artifact_2
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact-infracost
