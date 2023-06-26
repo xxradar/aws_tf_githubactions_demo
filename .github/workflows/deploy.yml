@@ -42,13 +42,13 @@ jobs:
     name: scan
     runs-on: ubuntu-latest
     needs: [validate]
-    working-directory: ${{ env.TFPath }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Run Trivy vulnerability scanner in IaC mode
         uses: aquasecurity/trivy-action@master
+        working-directory: ${{ env.TFPath }}
         with:
           scan-type: 'config'
           hide-progress: false
