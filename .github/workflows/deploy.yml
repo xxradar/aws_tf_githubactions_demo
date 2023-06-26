@@ -57,11 +57,11 @@ jobs:
         continue-on-error: true
         working-directory: ${{ env.TFPath }}
 
-     - name: upload artifact
-       uses: actions/upload-artifact@v2
-       with:
-         name: my-artifact
-         path: plan.tfplan
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: plan.tfplan
 
       - uses: actions/github-script@0.9.0
         # if: github.event_name == 'pull_request'
