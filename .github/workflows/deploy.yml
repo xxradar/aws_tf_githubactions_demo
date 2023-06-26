@@ -67,9 +67,9 @@ jobs:
       - uses: actions/checkout@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            gh auth setup-git
-            gh issue create --title "issue" -b "demo"
+        run: |
+          gh auth setup-git
+          gh issue create --title "issue" -b "demo"
 
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
