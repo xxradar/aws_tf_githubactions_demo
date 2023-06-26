@@ -60,7 +60,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
-          skip-dirs: './00_remote_state,./01_aws_security'
+          skip-dirs: './tf/00_remote_state,./tf/01_aws_security'
         continue-on-error: true
 
       - name: Archive production artifacts
