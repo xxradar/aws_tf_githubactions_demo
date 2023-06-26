@@ -141,18 +141,12 @@ jobs:
         with:
           path: /tmp/infracost.json
           behavior: update
-###
-      - name: Checkout base branch
-        uses: actions/checkout@v3
-        with:
-          ref: '${{ github.event.pull_request.base.ref }}'
-    
+###    
       - name: Post Infracost comment
         run: |
             infracost comment github --path=/tmp/infracost.json \
-                                     --repo=$GITHUB_REPOSITORY \
+                                     --repo="xxradar/aws_tf_githubactions_demo-" \
                                      --github-token=${{ secrets.GIT_TOKEN }}} \
-                                     --pull-request=${{github.event.pull_request.number}} \
                                      --behavior=update
 ###
 
