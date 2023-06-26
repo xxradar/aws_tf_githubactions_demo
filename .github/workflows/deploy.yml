@@ -37,6 +37,11 @@ jobs:
         id: fmt
         run: terraform fmt -check
         working-directory: ${{ env.TFPath }}
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ${{ env.TFPath }}
 ###
   scan:
     name: scan
