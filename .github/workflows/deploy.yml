@@ -41,7 +41,7 @@ jobs:
   scan:
     name: scan
     runs-on: ubuntu-latest
-    needs: [scan]
+    needs: [validate]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
