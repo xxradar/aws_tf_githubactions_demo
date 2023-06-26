@@ -58,6 +58,7 @@ jobs:
         working-directory: ${{ env.TFPath }}
 
       - name: Upload artifact Terraform plan
+        id: upload artifact
         uses: actions/upload-artifact@v2
         working-directory: ${{ env.TFPath }}
         with:
