@@ -1,4 +1,4 @@
-//testttt
+//testt
 
 //AWS Configuration
 variable "access_key" {}
