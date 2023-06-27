@@ -3,7 +3,6 @@ resource "aws_internet_gateway" "fgtvmigw" {
   vpc_id = aws_vpc.fgtvm-vpc.id
   tags = {
     Name = "fgtvm-igw"
-    Created = "Philippe Bogaerts"
   }
 }
 
