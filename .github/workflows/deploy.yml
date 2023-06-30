@@ -54,10 +54,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Change working dir
-        working-directory: ${{ env.TFPath }}
-        run: ls -la
-
       - name: Run Trivy vulnerability scanner in IaC mode
         uses: aquasecurity/trivy-action@master
         with:
@@ -78,9 +74,10 @@ jobs:
           name: my-artifact-scan
           path: trivy-results.txt
           
-      - uses: actions/checkout@v2
       - name: SAST
+        working-directory: ${{ env.TFPath }}
         run: |
+          ls $pwd
           docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
           docker run -i --mount type=bind,source="./tf/02_infra",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
 
