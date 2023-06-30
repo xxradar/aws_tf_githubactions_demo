@@ -74,12 +74,12 @@ jobs:
           name: my-artifact-scan
           path: trivy-results.txt
           
-      - name: SAST
+      - name: FortiDevSec 
+        id: FortiDevSec
         working-directory: ${{ env.TFPath }}
         run: |
-          ls $pwd
           docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
-          docker run -i --mount type=bind,source="./tf/02_infra",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
+          docker run -i --mount type=bind,source="$(pwd)",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
 
 
 
