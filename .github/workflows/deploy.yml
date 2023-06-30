@@ -126,8 +126,6 @@ jobs:
     name: "Terraform Plan and Infracost"
     runs-on: ubuntu-latest
     needs: [plan]
-    env:
-
     steps:
       - name: Checkout base branch
         uses: actions/checkout@v3
