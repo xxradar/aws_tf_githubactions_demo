@@ -3,3 +3,7 @@ version: v1
 id:
   org: 506202ab-209a-49d9-aaa3-59ea554452df
   app: 69c82db4-73f2-4d33-a109-9445b2e9b47d
+
+scanners:
+  - secret
+  - iac
