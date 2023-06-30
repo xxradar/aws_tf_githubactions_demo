@@ -77,6 +77,14 @@ jobs:
         with:
           name: my-artifact-scan
           path: trivy-results.txt
+          
+      - uses: actions/checkout@v2
+      - name: SAST
+        run: |
+          docker pull registry.fortidevsec.forticloud.com/fdevsec_sast:latest
+          docker run -i --mount type=bind,source="./tf/02_infra",target=/scan  registry.fortidevsec.forticloud.com/fdevsec_sast:latest
+
+
 
 # Terraform Plan
   plan:
