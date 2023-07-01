@@ -6,9 +6,12 @@ env:
 on:
   push:
    branches: [ master ]
+   paths:
+      - tf/02_infra/**
   pull_request:
    branches: [ master ]
-
+   paths:
+      - tf/02_infra/**
 jobs:
   validate:
     name: "Terraform Validate"
