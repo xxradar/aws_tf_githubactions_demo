@@ -3,7 +3,7 @@ Interested in getting this demo in your own environment? Follow these steps !
 
 ## Prerequisites
 ### 1. Github
-Choose one of the following options
+Choose one of the following options [https://github.com](https://github.com)
 - Use your own Github account
 - Create a new Github account (a free account)
 
@@ -19,3 +19,7 @@ We'll use Infracost as an example and API integration to demonstrate a CI/CD wor
 - Signin with your Github account
 - Click on **Org settings**
 - Copy the **API key** and store for later use, it looks like **ico-YxPF1..yht4U**. Keep it secure.
+
+### 3. AWS 
+Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/console/) and login with the provided credentials.<br>
+(You can of course use you're own AWS access)
