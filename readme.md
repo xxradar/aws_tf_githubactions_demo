@@ -15,7 +15,7 @@ Once you have access to your Github account, create *Personal access tokens (cla
 
 ### 2. Infracost
 We'll use Infracost as an example and API integration to demonstrate a CI/CD workflow
-- Goto (https://www.infracost.io/)[https://www.infracost.io/]
+- Goto [https://www.infracost.io/](https://www.infracost.io/)
 - Signin with your Github account
 - Click on **Org settings**
 - Copy the **API key** and store for later use, it looks like **ico-YxPF1..yht4U**. Keep it secure.
