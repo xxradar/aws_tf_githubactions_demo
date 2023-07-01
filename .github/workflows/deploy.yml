@@ -5,9 +5,9 @@ env:
 
 on:
   push:
-   branches: [ master ]
+   branches: [ fortdevsec ]
   pull_request:
-   branches: [ master ]
+   branches: [ fortdevsec ]
 
 jobs:
   validate:
