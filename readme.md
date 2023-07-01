@@ -22,4 +22,5 @@ We'll use Infracost as an example and API integration to demonstrate a CI/CD wor
 
 ### 3. AWS 
 Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/console/) and login with the provided account ID and credentials.<br>
-(You can of course use you're own AWS access)
+(You can of course use your own AWS access)
+- Create a Cloud9 instance in `eu-west-3`. Just provide a name and accept the default settings.
