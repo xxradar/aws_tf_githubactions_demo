@@ -21,5 +21,5 @@ We'll use Infracost as an example and API integration to demonstrate a CI/CD wor
 - Copy the **API key** and store for later use, it looks like **ico-YxPF1..yht4U**. Keep it secure.
 
 ### 3. AWS 
-Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/console/) and login with the provided credentials.<br>
+Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/console/) and login with the provided account ID and credentials.<br>
 (You can of course use you're own AWS access)
