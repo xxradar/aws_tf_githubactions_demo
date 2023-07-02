@@ -36,7 +36,8 @@ In the next section of the lab, we're going the create an automation workflow th
 With very minor adjustment, any of the terraform examples in [https://github.com/fortinet](https://github.com/fortinet) could be used.
 
 ### Step 1
-In order to work on a project (where you're not a team member or collaborator), **Fork** the repo [https://github.com/xxradar/aws_tf_githubactions_demo-](https://github.com/xxradar/aws_tf_githubactions_demo-). This will create a copy of the repo in your own Github account.
+In order to work on a project (where you're not a team member or collaborator), <br>
+**Fork** the repo [https://github.com/xxradar/aws_tf_githubactions_demo-](https://github.com/xxradar/aws_tf_githubactions_demo-). This will create a copy of the repo in your own Github account.
 
 ### Step 2
 When you explore the repo, you will find a `tf` folder container 3 subfolders.
