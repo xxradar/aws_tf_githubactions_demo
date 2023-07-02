@@ -54,14 +54,14 @@ git clone https://github.com/<your_github_account>/aws_tf_githubactions_demo-.gi
 ```
 ### Step 4
 In the next step, we are going to create a place where we can store out `terraform state file`
-- Go to the .tf\00_remote_state directory
+- Go to the `.tf\00_remote_state` directory
 - Run `terraform init` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY)
 - Run `terraform apply` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY and confirm)
 When completed, the created S# bucket name will be displayed.
 It should look like **.......**
 
 Fortigates also require a AWS role the interact with the AWS API.
-- Go to the .tf\01_aws_security directory
+- Go to the `.tf\01_aws_security` directory
 - Run `terraform init` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY)
 - Run `terraform apply` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY and confirm)
 
