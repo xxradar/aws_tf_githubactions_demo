@@ -1,7 +1,13 @@
+variable "studentid" {
+  default = "studentXX"
+  description = "Your student ID"
+}
+
 variable "region" {
   default = "eu-west-3"
   description = "The AWS region."
 }
+
 variable "prefix" {
   default = "xpertsummit"
   description = "The name of our company"
