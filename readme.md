@@ -30,3 +30,41 @@ Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/
 - If you get prompted, click **Force Update**
 #### Accept the required licensing
 - In the lab, we'll be using PAYG license to spinup our Fortigates. There is a license agreement that needs to be accepted. CLick [https://aws.amazon.com/marketplace/pp?sku=2wqkpek696qhdeo7lbbjncqli](https://aws.amazon.com/marketplace/pp?sku=2wqkpek696qhdeo7lbbjncqli), click **Continue to Subsctibe** and **Accept Terms**.
+
+## Github action automation demo
+In the next section of the lab, we're going the create an automation workflow that will deploy een A/P pair of Fortigates with all the required networking.
+With very minor adjustment, any of the terraform examples in [https://github.com/fortinet](https://github.com/fortinet) could be used.
+
+### Step 1
+In order to work on a project (where you're not a team member or collaborator), **Fork** the repo [https://github.com/xxradar/aws_tf_githubactions_demo-](https://github.com/xxradar/aws_tf_githubactions_demo-). This will create a copy of the repo in your own Github account.
+
+### Step 2
+When you explore the repo, you will find a `tf` folder container 3 subfolders.
+- 00_remote_state 
+- 01_security
+- 02_infra
+
+In `00_remote_state`,  update the file `variables.tf` with your **studentid** and click **commit**
+
+### Step 3
+Now, clone your update repo into the Cloud9 instance.
+```
+git clone https://github.com/<your_github_account>/aws_tf_githubactions_demo-.git
+```
+### Step 4
+In the next step, we are going to create a place where we can store out `terraform state file`
+- Go to the .tf\00_remote_state directory
+- Run `terraform init` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY)
+- Run `terraform apply` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY and confirm)
+When completed, the created S# bucket name will be displayed.
+It should look like **.......**
+
+Fortigates also require a AWS role the interact with the AWS API.
+- Go to the .tf\01_security directory
+- Run `terraform init` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY)
+- Run `terraform apply` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY and confirm)
+
+### Step 5
+In order that our Github action has the necessary credentials, we need to make sure we provide them in a secure way, through Github Action secrets.
+- Goto `https://github.com/<your_gh_account>/aws_tf_githubactions_demo-`, click **Settings**, select **Actions** in the **Secrets and variables** section
+
