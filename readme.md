@@ -40,9 +40,9 @@ In order to work on a project (where you're not a team member or collaborator), 
 **Fork** the repo [https://github.com/xxradar/aws_tf_githubactions_demo-](https://github.com/xxradar/aws_tf_githubactions_demo-). This will create a copy of the repo in your own Github account.
 
 ### Step 2
-When you explore the repo, you will find a `tf` folder container 3 subfolders.
+When you explore the repo, you will find a `tf` folder containing 3 subfolders.
 - 00_remote_state 
-- 01_security
+- 01_aws_security
 - 02_infra
 
 In `00_remote_state`,  update the file `variables.tf` with your **studentid** and click **commit**
@@ -61,7 +61,7 @@ When completed, the created S# bucket name will be displayed.
 It should look like **.......**
 
 Fortigates also require a AWS role the interact with the AWS API.
-- Go to the .tf\01_security directory
+- Go to the .tf\01_aws_security directory
 - Run `terraform init` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY)
 - Run `terraform apply` (you need the provide the AWS_ACCESS_KEY and AWS_SECRET_KEY and confirm)
 
