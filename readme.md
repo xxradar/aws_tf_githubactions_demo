@@ -18,7 +18,7 @@ We'll use Infracost as an example and API integration to demonstrate a CI/CD wor
 - Goto [https://www.infracost.io/](https://www.infracost.io/)
 - Signin with your Github account
 - Click on **Org settings**
-- Copy the **API key** and store for later use, it looks like **ico-YxPF1..yht4U**. Keep it secure.
+- Copy the **API key** and store for later use, it looks like **ico-YxPF1........yht4U**. Keep it secure.
 
 ### 3. AWS 
 #### Prepare the AWS console and Cloud9 instance
