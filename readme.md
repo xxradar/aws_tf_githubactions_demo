@@ -25,7 +25,8 @@ We'll use Infracost as an example and API integration to demonstrate a CI/CD wor
 Access the AWS console [https://aws.amazon.com/console/](https://aws.amazon.com/console/) and login with the provided account ID and credentials.<br>
 (You can of course use your own AWS access)
 - Create a Cloud9 instance in `eu-west-3`. Just provide a name and accept the default settings
-- Open the Cloud9 instance, in `terminal` section, configure the AWS CLI by typing `aws configure`
+- Open the Cloud9 instance, in the `terminal` section, configure the AWS CLI by typing `aws configure` and provided the required information.
+  Use region`eu-west-3`.
 - If you get prompted, click **Force Update**
 #### Accept the required licensing
 - In the lab, we'll be using PAYG license to spinup our Fortigates. There is a license agreement that needs to be accepted. CLick [https://aws.amazon.com/marketplace/pp?sku=2wqkpek696qhdeo7lbbjncqli](https://aws.amazon.com/marketplace/pp?sku=2wqkpek696qhdeo7lbbjncqli), click **Continue to Subsctibe** and **Accept Terms**.
