@@ -66,5 +66,30 @@ Fortigates also require a AWS role the interact with the AWS API.
 
 ### Step 5
 In order that our Github action has the necessary credentials, we need to make sure we provide them in a secure way, through Github Action secrets.
-- Goto `https://github.com/<your_gh_account>/aws_tf_githubactions_demo-`, click **Settings**, select **Actions** in the **Secrets and variables** section
+Goto `https://github.com/<your_gh_account>/aws_tf_githubactions_demo-`, click **Settings**, select **Actions** in the **Secrets and variables** section.
+Now create
+- AWS_ACCESS_KEY
+- AWS_SECRET_KEY
+- GIT_TOKEN
+- INFRACOST_API_KEY
+
+Note: Previous steps are only required when setting up the workflow and are done once.
+
+### Step 6
+At this point, a lof of automation will kick in. Inside the Cloud9 instance (consider it your development dekstop), we are going to 
+- update our code
+- stage our changes
+- commit our changes (in our Cloud9 instance)
+- Push our changes to Github. At that point, the Github Action will kick in, and deploy our code.
+
+As mentioned in **step 2**, we are using a shared storage for keep track of our terraform deployment, so we need to update our in `.\tf\02_infra` to reflect this.
+In our cloud9, there is an code editor, that can easily help you to edit .\tf\02_infra\provider.tf`.
+- Edit the `bucket = "xpertsummit-remote-state-development"` line to reflect your S3 bucket name
+- `git status` will show you what is changed and need staging
+- `git add provider.tf` will stage the changes
+- `git commit -m "My update of provider.tf`
+- `git push` to push the changes to Github
+
+Now the Github Action will kick in and deploy the infrastructure. You can follow the progress in the Github UI under actions.
+
 
